@@ -6,8 +6,6 @@ int main()
 	BitmapUtils u;
 
 	u.readJpeg("test.jpg", &bmp);
-	//Test rectangle
-	//u.drawRectangle(&bmp,32,32,128,128);
 	u.writeJpeg("output.jpg", &bmp);
 
 	cout << "Read: test.jpg" << endl;
