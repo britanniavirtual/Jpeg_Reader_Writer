@@ -152,10 +152,6 @@ void BitmapUtils::resample(BitmapMin *input, int width, int height)
 
 	input->width = height;
 	input->height = width;
-
-	//stringstream d;
-	//d << input->width << " " << input->height << endl;
-	//MessageBox(NULL, d.str().c_str(), "", MB_ICONASTERISK | MB_OK);
 }
 
 
@@ -311,8 +307,6 @@ void BitmapUtils::flipVertical(BitmapMin *input)
 		}
 	}
 
-	//cout << input->width << " " << input->height;
-
 	int depth = input->height;
 	int select = 0;
 	for (int i = 0; i < input->width; i++)
@@ -366,11 +360,8 @@ void BitmapUtils::rotate90deg(BitmapMin *input)
 //--------------------------------------
 int BitmapUtils::writeJpeg(string fileName, BitmapMin * img)
 {
-	//time_t now = time(0);
-	// convert now to string form
-	//char* dt = ctime(&now);
 	stringstream fn;
-	fn << fileName;// << ".jpg";
+	fn << fileName;
 
 	unsigned char *raw_image = NULL;
 	int bytes_per_pixel = 3;   /* or 1 for GRACYSCALE images */
@@ -436,7 +427,7 @@ int BitmapUtils::writeJpeg(string fileName, BitmapMin * img)
 }
 
 //--------------------------------------
-// Desc: Load a jpeg from filesystem to Bitmap object parameter
+//
 //--------------------------------------
 int BitmapUtils::readJpeg(string fileName, BitmapMin * bitmap)
 {
@@ -446,12 +437,7 @@ int BitmapUtils::readJpeg(string fileName, BitmapMin * bitmap)
 
 	if (!infile)
 	{
-		/*
-		stringstream msg;
-		msg << "File " << fileName << " not found!";
-		MessageBox(NULL, msg.str().c_str(), "", MB_ICONASTERISK | MB_OK);
-		return -1;
-		*/
+		//cout << "File " << fileName << " not found!";
 	}
 
 	JSAMPARRAY buffer;
@@ -464,24 +450,6 @@ int BitmapUtils::readJpeg(string fileName, BitmapMin * bitmap)
 	int width = static_cast<int>(cinfo.output_width);
 	int height = static_cast<int>(cinfo.output_height);
 
-	if (width > 320)
-	{
-		/*
-		MessageBox(NULL, "Image width is too great. 320 x 240px maximum!", "", MB_ICONASTERISK | MB_OK);
-		bmpUtils.clearToRGB(bitmap, 255, 0, 255);
-		return -1;
-		*/
-	}
-
-	if (height > 240)
-	{
-		/*
-		MessageBox(NULL, "Image height is too great. 320 x 240px maximum!", "", MB_ICONASTERISK | MB_OK);
-		bmpUtils.clearToRGB(bitmap, 255, 0, 255);
-		return -1;
-		*/
-	}
-	
 	bitmap->width = cinfo.output_width;
 	bitmap->height = cinfo.output_height;
 
@@ -494,9 +462,8 @@ int BitmapUtils::readJpeg(string fileName, BitmapMin * bitmap)
 	{
 		(void)jpeg_read_scanlines(&cinfo, buffer, 1);
 
-		//get the pointer to the row
 		unsigned char* pixel_row = (unsigned char*)(buffer[0]);
-		//iterate over the pixels
+
 		for (int i = 0; i < cinfo.output_width; i++)
 		{
 			int red = (int)(*pixel_row++);
@@ -516,7 +483,7 @@ int BitmapUtils::readJpeg(string fileName, BitmapMin * bitmap)
 	int x = width;
 	int y = height;
 
-	fclose(infile);//Close the file (essential)
+	fclose(infile);
 
 	return 1;
 }

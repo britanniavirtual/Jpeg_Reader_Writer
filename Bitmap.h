@@ -51,7 +51,7 @@ struct POINT
 };
 
 //----------------------------------------------------------
-// Desc: Utility routines applicable to BitmapMin objects
+// Utility routines applicable to BitmapMin objects
 //----------------------------------------------------------
 class BitmapUtils
 {
