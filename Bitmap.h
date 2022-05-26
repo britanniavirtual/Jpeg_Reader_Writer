@@ -25,8 +25,9 @@ struct rgb
 		this->b = b;
 	}
 };
+
 //----------------------------------------------------------
-// Desc: Just the bitmap data
+// Just the bitmap data
 //----------------------------------------------------------
 class BitmapMin
 {
@@ -40,9 +41,11 @@ public:
 	void shutDown();
 };
 
-class POINT
+//----------------------------------------------------------
+//
+//----------------------------------------------------------
+struct POINT
 {
-public:
 	float x;
 	float y;
 };
@@ -63,7 +66,7 @@ public:
 	void flipHorizontal(BitmapMin *input);
 	void flipVertical(BitmapMin *input);
 
-	rgb rectColor = { 234, 235, 66 };
+	rgb rectColor = {128, 128, 128};
 	int rectWidth = 3;
 	void drawRectangle(BitmapMin *input, int sx, int sy, int ex, int ey);
 	void drawLine(BitmapMin *input, float degrees, float magnitude, int stX, int stY, rgb color);
@@ -76,5 +79,4 @@ private:
 
 	BitmapMin *temporary;
 };
-
 

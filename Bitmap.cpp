@@ -2,7 +2,7 @@
 
 
 //--------------------------------------
-// Desc: 
+//
 //--------------------------------------
 BitmapMin::BitmapMin()
 {
@@ -18,7 +18,7 @@ BitmapMin::BitmapMin()
 
 
 //------------------------------
-// Desc: Destructor
+// Destructor
 //------------------------------
 BitmapMin::~BitmapMin()
 {
@@ -32,7 +32,7 @@ BitmapMin::~BitmapMin()
 }
 
 //------------------------------
-// Desc: Free allocated memory as needed
+// Free allocated memory as needed
 //------------------------------
 void BitmapMin::shutDown()
 {
@@ -44,7 +44,7 @@ void BitmapMin::shutDown()
 }
 
 //--------------------------------------
-// Desc: Draw a line on a bitmap (1 pixel width)
+// Draw a line on a bitmap (1 pixel width)
 //--------------------------------------
 void BitmapUtils::drawLine(BitmapMin *input, float degrees, float magnitude, int stX, int stY, rgb color)
 {
@@ -110,7 +110,7 @@ void BitmapUtils::drawLine(BitmapMin *input, float degrees, float magnitude, int
 
 
 //--------------------------------------
-// Desc: Resample a BitmapMin object to new dimensions
+// Resample a BitmapMin object to new dimensions
 //--------------------------------------
 void BitmapUtils::resample(BitmapMin *input, int width, int height)
 {
@@ -160,7 +160,7 @@ void BitmapUtils::resample(BitmapMin *input, int width, int height)
 
 
 //--------------------------------------
-// Desc: x and y are flipped in the for blocks
+//
 //--------------------------------------
 void BitmapUtils::drawRectangle(BitmapMin *input, int sx, int sy, int ex, int ey)
 {
@@ -232,7 +232,7 @@ void BitmapUtils::drawRectangle(BitmapMin *input, int sx, int sy, int ex, int ey
 
 
 //--------------------------------------
-// Desc:
+// 
 //--------------------------------------
 void BitmapUtils::rgbFill(BitmapMin *input, rgb color)
 {
@@ -248,7 +248,7 @@ void BitmapUtils::rgbFill(BitmapMin *input, rgb color)
 }
 
 //--------------------------------------
-// Desc:
+//
 //--------------------------------------
 BitmapUtils::BitmapUtils()
 {
@@ -258,7 +258,7 @@ BitmapUtils::BitmapUtils()
 }
 
 //--------------------------------------
-// Desc:
+//
 //--------------------------------------
 BitmapUtils::~BitmapUtils()
 {
@@ -266,7 +266,7 @@ BitmapUtils::~BitmapUtils()
 }
 
 //--------------------------------------
-// Desc:
+//
 //--------------------------------------
 void BitmapUtils::flipHorizontal(BitmapMin *input)
 {
@@ -297,7 +297,7 @@ void BitmapUtils::flipHorizontal(BitmapMin *input)
 
 
 //--------------------------------------
-// Desc:
+//
 //--------------------------------------
 void BitmapUtils::flipVertical(BitmapMin *input)
 {
@@ -331,7 +331,7 @@ void BitmapUtils::flipVertical(BitmapMin *input)
 }
 
 //--------------------------------------
-// Desc:
+//
 //--------------------------------------
 void BitmapUtils::rotate90deg(BitmapMin *input)
 {
@@ -362,7 +362,7 @@ void BitmapUtils::rotate90deg(BitmapMin *input)
 
 
 //--------------------------------------
-// Desc: Save a jpeg to filesystem from Bitmap object parameter
+//
 //--------------------------------------
 int BitmapUtils::writeJpeg(string fileName, BitmapMin * img)
 {
@@ -380,10 +380,10 @@ int BitmapUtils::writeJpeg(string fileName, BitmapMin * img)
 
 	JSAMPROW row_pointer[1];
 
-	//Open file:
+	//Open file
 	FILE *outfile = fopen(fn.str().c_str(), "wb");
 
-	//Resolution of the bitmap object:
+	//Resolution of the bitmap object
 	POINT targRes2 = { img->width, img->height };
 
 	cinfo.image_height = targRes2.y;
@@ -391,22 +391,11 @@ int BitmapUtils::writeJpeg(string fileName, BitmapMin * img)
 
 	raw_image = (unsigned char*)malloc(targRes2.x * targRes2.y * 3);
 
-	//pixels2[a][b][0] = bmpCapture.map[targRes.y - a][b].r * 0.005;
-	//pixels2[a][b][1] = bmpCapture.map[targRes.y - a][b].g * 0.005;
-	//pixels2[a][b][2] = bmpCapture.map[targRes.y - a][b].b * 0.005;
-	//pixels2[a][b][3] = 1.0;
-
-	//stringstream f;
-	//f << targRes.y << " , " << targRes.x;
-	//MessageBox(NULL, f.str().c_str(), "", MB_ICONEXCLAMATION | MB_OK);
-
-	//Access the pixels
+	//Access pixels
 	for (int i = 0; i < targRes2.y; i++)
 	{
 		for (int j = 0; j < targRes2.x; j++)
 		{
-			// Pixel (i,j)
-
 			int curI = targRes2.y - i - 1;
 
 			raw_image[(i*cinfo.image_width * 3) + (j * 3) + 0] = img->map[curI][j].r; // Red Pixel
@@ -442,7 +431,6 @@ int BitmapUtils::writeJpeg(string fileName, BitmapMin * img)
 	jpeg_destroy_compress(&cinfo);
 	fclose(outfile);
 
-	//delete(dt);
 
 	return 1;
 }
@@ -452,17 +440,6 @@ int BitmapUtils::writeJpeg(string fileName, BitmapMin * img)
 //--------------------------------------
 int BitmapUtils::readJpeg(string fileName, BitmapMin * bitmap)
 {
-	//stringstream a;
-	//a << "Loading: " << fileName;
-	//MessageBox(NULL, a.str().c_str(), "", MB_ICONASTERISK | MB_OK);
-
-	
-
-	//stringstream d;
-	//d << hog.hogBitmap.map[511][511].b << " " << hog.hogBitmap.map[0][0].g << " " << hog.hogBitmap.map[0][0].r << endl;
-	//MessageBox(NULL, d.str().c_str(), "", MB_ICONASTERISK | MB_OK);
-
-
 	struct jpeg_decompress_struct cinfo;
 
 	FILE * infile = fopen(fileName.c_str(), "rb");//Open the file
@@ -517,18 +494,18 @@ int BitmapUtils::readJpeg(string fileName, BitmapMin * bitmap)
 	{
 		(void)jpeg_read_scanlines(&cinfo, buffer, 1);
 
-		// get the pointer to the row:
+		//get the pointer to the row
 		unsigned char* pixel_row = (unsigned char*)(buffer[0]);
-		// iterate over the pixels:
+		//iterate over the pixels
 		for (int i = 0; i < cinfo.output_width; i++)
 		{
 			int red = (int)(*pixel_row++);
 			int green = (int)(*pixel_row++);
 			int blue = (int)(*pixel_row++);
 
-			bitmap->map[tmpHeight - curY - 1][curX].r = red;   // Red Pixel
-			bitmap->map[tmpHeight - curY - 1][curX].g = green; // Green Pixel
-			bitmap->map[tmpHeight - curY - 1][curX].b = blue;  // Blue Pixel
+			bitmap->map[tmpHeight - curY - 1][curX].r = red;   //Red Pixel
+			bitmap->map[tmpHeight - curY - 1][curX].g = green; //Green Pixel
+			bitmap->map[tmpHeight - curY - 1][curX].b = blue;  //Blue Pixel
 
 			curX++;
 		}
@@ -536,14 +513,10 @@ int BitmapUtils::readJpeg(string fileName, BitmapMin * bitmap)
 		curX = 0;
 	}
 
-	//bitmap->height = height;
-	//bitmap->width = width;
-
 	int x = width;
 	int y = height;
 
 	fclose(infile);//Close the file (essential)
 
 	return 1;
-
 }

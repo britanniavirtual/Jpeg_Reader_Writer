@@ -3,10 +3,10 @@
 int main()
 {
 	BitmapMin bmp;
-	BitmapUtils u;
+	BitmapUtils utils;
 
-	u.readJpeg("test.jpg", &bmp);
-	u.writeJpeg("output.jpg", &bmp);
+	utils.readJpeg("test.jpg", &bmp);
+	utils.writeJpeg("output.jpg", &bmp);
 
 	cout << "Read: test.jpg" << endl;
 	cout << "Wrote: output.jpg" << endl;
